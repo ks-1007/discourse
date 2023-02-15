@@ -1,14 +1,16 @@
+import classic from "ember-classic-decorator";
 import Component from "@ember/component";
-export default Component.extend({
+@classic
+export default class AdminWrapper extends Component {
   didInsertElement() {
-    this._super(...arguments);
+    super.didInsertElement(...arguments);
     document.querySelector("html").classList.add("admin-area");
     document.querySelector("body").classList.add("admin-interface");
-  },
+  }
 
   willDestroyElement() {
-    this._super(...arguments);
+    super.willDestroyElement(...arguments);
     document.querySelector("html").classList.remove("admin-area");
     document.querySelector("body").classList.remove("admin-interface");
-  },
-});
+  }
+}
