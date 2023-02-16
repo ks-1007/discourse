@@ -52,7 +52,7 @@ class TopicGroup < ActiveRecord::Base
     SQL
 
     query +=
-      "AND NOT(tag.group_id IN (:already_updated_groups))" unless updated_group_ids.length.zero?
+      "AND NOT(tag.group_id IN (:already_updated_groups))" if updated_group_ids.length.nonzero?
 
     query += <<~SQL
       ON CONFLICT(topic_id, group_id)

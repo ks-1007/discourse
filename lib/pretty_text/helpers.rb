@@ -9,12 +9,12 @@ module PrettyText
     # functions here are available to v8
     def t(key, opts)
       key = "js." + key
-      unless opts
-        I18n.t(key)
-      else
+      if opts
         str = I18n.t(key, Hash[opts.entries].symbolize_keys).dup
         opts.each { |k, v| str.gsub!("{{#{k.to_s}}}", v.to_s) }
         str
+      else
+        I18n.t(key)
       end
     end
 

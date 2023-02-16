@@ -23,7 +23,9 @@ class UserSilencer
 
   def silence
     hide_posts unless @opts[:keep_posts]
-    unless @user.silenced_till.present?
+    if @user.silenced_till.present?
+      false
+    else
       @user.silenced_till = @opts[:silenced_till] || 1000.years.from_now
       if @user.save
         message_type = @opts[:message] || :silenced_by_staff
@@ -57,8 +59,6 @@ class UserSilencer
         SystemMessage.create(@user, message_type, silence_message_params)
         true
       end
-    else
-      false
     end
   end
 
